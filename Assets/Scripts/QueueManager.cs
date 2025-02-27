@@ -5,32 +5,32 @@ using UnityEngine.AI;
 public class QueueManager : MonoBehaviour
 {
     public Transform[] queuePositions;
-    private readonly Queue<NavMeshAgent> agentQueue = new();
+    private readonly Queue<NPCBase> npcQueue = new();
 
     /// <summary>
-    /// Event handler for when an item is added to the queue.
+    /// Event handler for when an npc is added to the queue.
     /// </summary>
-    /// <param name="agent">The agent that was added to the queue.</param>
-    public delegate void QueueChangedHandler(NavMeshAgent agent);
+    /// <param name="npc">The npc that was added to the queue.</param>
+    public delegate void QueueChangedHandler(NPCBase npc);
 
     public event QueueChangedHandler OnQueue;
     public event QueueChangedHandler OnDequeue;
 
-    public void Enqueue(NavMeshAgent agent)
+    public void Enqueue(NPCBase npc)
     {
-        if (agentQueue.Contains(agent)) return;
+        if (npcQueue.Contains(npc)) return;
 
-        agentQueue.Enqueue(agent);
+        npcQueue.Enqueue(npc);
         UpdateQueuePositions();
 
-        OnQueue?.Invoke(agent);
+        OnQueue?.Invoke(npc);
     }
 
     public void Dequeue()
     {
-        if (agentQueue.Count <= 0) return;
+        if (npcQueue.Count <= 0) return;
 
-        var agent = agentQueue.Dequeue();
+        var agent = npcQueue.Dequeue();
         UpdateQueuePositions();
 
         OnDequeue?.Invoke(agent);
@@ -39,11 +39,11 @@ public class QueueManager : MonoBehaviour
     private void UpdateQueuePositions()
     {
         int index = 0;
-        foreach (var agent in agentQueue)
+        foreach (var npc in npcQueue)
         {
             if (index < queuePositions.Length)
             {
-                agent.SetDestination(queuePositions[index].position);
+                npc.MoveTo(queuePositions[index].position);
                 index++;
             }
         }
