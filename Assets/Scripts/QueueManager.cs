@@ -5,22 +5,22 @@ using UnityEngine.AI;
 public class QueueManager : MonoBehaviour
 {
     public Transform[] queuePositions;
-    private readonly Queue<NPCBase> npcQueue = new();
+    public readonly LinkedList<NpcBase> npcQueue = new();
 
     /// <summary>
     /// Event handler for when an npc is added to the queue.
     /// </summary>
     /// <param name="npc">The npc that was added to the queue.</param>
-    public delegate void QueueChangedHandler(NPCBase npc);
+    public delegate void QueueChangedHandler(NpcBase npc);
 
     public event QueueChangedHandler OnQueue;
     public event QueueChangedHandler OnDequeue;
 
-    public void Enqueue(NPCBase npc)
+    public void Enqueue(NpcBase npc)
     {
         if (npcQueue.Contains(npc)) return;
 
-        npcQueue.Enqueue(npc);
+        npcQueue.AddLast(npc);
         UpdateQueuePositions();
 
         OnQueue?.Invoke(npc);
@@ -30,10 +30,11 @@ public class QueueManager : MonoBehaviour
     {
         if (npcQueue.Count <= 0) return;
 
-        var agent = npcQueue.Dequeue();
+        var npc = npcQueue.First.Value;
+        npcQueue.RemoveFirst();
         UpdateQueuePositions();
 
-        OnDequeue?.Invoke(agent);
+        OnDequeue?.Invoke(npc);
     }
 
     private void UpdateQueuePositions()

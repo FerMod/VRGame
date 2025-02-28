@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class GameLogic : MonoBehaviour
 {
@@ -9,9 +8,9 @@ public class GameLogic : MonoBehaviour
     [Space]
     public Transform waitPosition;
     public Transform acceptPosition;
-    public Transform dismissPosition;
+    public Transform[] dismissPositions;
 
-    private NPCBase npcWaiting;
+    private NpcBase npcWaiting;
 
     private void OnEnable()
     {
@@ -25,12 +24,12 @@ public class GameLogic : MonoBehaviour
         queueManager.OnDequeue -= HandleOnDequeue;
     }
 
-    private void HandleOnQueue(NPCBase npc)
+    private void HandleOnQueue(NpcBase npc)
     {
         // NO-OP
     }
 
-    private void HandleOnDequeue(NPCBase npc)
+    private void HandleOnDequeue(NpcBase npc)
     {
         npc.MoveTo(waitPosition.position);
         npcWaiting = npc;
@@ -48,7 +47,7 @@ public class GameLogic : MonoBehaviour
 
     public void DismissCustomer()
     {
-        ServeWaitingCustomer(dismissPosition);
+        ServeWaitingCustomer(dismissPositions[Random.Range(0, dismissPositions.Length)]);
     }
 
     public void ServeWaitingCustomer(Transform transform, float time = 0f)
@@ -58,7 +57,7 @@ public class GameLogic : MonoBehaviour
         npcWaiting = null;
     }
 
-    private void MoveAndDestroy(NPCBase npc, Vector3 position, float time = 0f)
+    private void MoveAndDestroy(NpcBase npc, Vector3 position, float time = 0f)
     {
         npc.OnDestinationReached += () =>
         {
