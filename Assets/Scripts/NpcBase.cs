@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -73,6 +74,7 @@ public abstract class NpcBase : MonoBehaviour
         if (HasReachedDestination) return;
         if (Agent == null) return;
         if (Agent.path == null) return;
+        if (Agent.path.corners.Length < 2) return;
 
         if (showPath)
         {
@@ -99,15 +101,15 @@ public abstract class NpcBase : MonoBehaviour
 
     private void DrawTargetPoint(NavMeshPath path)
     {
-        if (path.corners.Length == 0) return;
+        if (path.corners.Length < 2) return;
 
         float size = destinationSize * 0.5f;
         Gizmos.color = destinationColor;
-                                     
+
         var targetPosition = path.corners[^1];
-        Gizmos.DrawLine(targetPosition +  size * Vector3.left, targetPosition +  size * Vector3.right);
-        Gizmos.DrawLine(targetPosition +  size * Vector3.up, targetPosition +  size * Vector3.down);
-        Gizmos.DrawLine(targetPosition +  size * Vector3.forward, targetPosition +  size * Vector3.back);
+        Gizmos.DrawLine(targetPosition + size * Vector3.left, targetPosition + size * Vector3.right);
+        Gizmos.DrawLine(targetPosition + size * Vector3.up, targetPosition + size * Vector3.down);
+        Gizmos.DrawLine(targetPosition + size * Vector3.forward, targetPosition + size * Vector3.back);
     }
 #endif
 }
