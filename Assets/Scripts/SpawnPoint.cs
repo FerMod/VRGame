@@ -11,9 +11,9 @@ public class SpawnPoint
     public Vector3 RandomPosition()
     {
         return transform.position + new Vector3(
-            Random.Range(-area.x / 2, area.x / 2),
-            Random.Range(-area.y / 2, area.y / 2),
-            Random.Range(-area.z / 2, area.z / 2)
+            Random.Range(-area.x * 0.5f, area.x * 0.5f),
+            Random.Range(-area.y * 0.5f, area.y * 0.5f),
+            Random.Range(-area.z * 0.5f, area.z * 0.5f)
         );
     }
 
