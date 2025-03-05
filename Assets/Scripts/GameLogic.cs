@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
-    [Header("NPC Queue")]
+    [Header("NPC")]
+    public NpcSpawner npcSpawner;
     public QueueManager queueManager;
 
     [Space]
@@ -42,27 +43,30 @@ public class GameLogic : MonoBehaviour
 
     public void AcceptCustomer()
     {
-        ServeWaitingCustomer(acceptPosition);
+        ServeWaitingCustomer(acceptPosition.position);
     }
 
     public void DismissCustomer()
     {
-        ServeWaitingCustomer(dismissPositions[Random.Range(0, dismissPositions.Length)]);
+        ServeWaitingCustomer(npcSpawner.RandomDestinationPoint().RandomPosition());
     }
 
-    public void ServeWaitingCustomer(Transform transform, float time = 0f)
+    public void ServeWaitingCustomer(Vector3 position)
     {
         if (npcWaiting == null) return;
-        MoveAndDestroy(npcWaiting, transform.position);
+        npcWaiting.MoveTo(position, true);
         npcWaiting = null;
     }
 
-    private void MoveAndDestroy(NpcBase npc, Vector3 position, float time = 0f)
+    public void SpawnPasserbyNpc()
     {
-        npc.OnDestinationReached += () =>
-        {
-            Destroy(npc.gameObject, time);
-        };
-        npc.MoveTo(position);
+        npcSpawner.SpawnPasserbyNpc();
+    }
+
+    public void SpawnQueueNpc()
+    {
+        if (queueManager.IsQueueFull) return;
+        var npc = npcSpawner.SpawnQueueNpc();
+        queueManager.Enqueue(npc);
     }
 }

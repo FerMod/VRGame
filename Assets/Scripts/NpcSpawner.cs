@@ -1,15 +1,29 @@
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class NpcSpawner : MonoBehaviour
 {
-    public GameObject[] npcPrefabs;
+    [Description("Passerby NPCs that will spawn and walk from one point to another.")]
+    public GameObject[] passerbyNpcPrefabs;
+
+    [Description("Queue NPCs that will go to the waiting line to be served.")]
+    public GameObject[] queueNpcPrefabs;
+
     public SpawnPoint[] spawnPoints;
 
+    private struct NpcSpawnData
+    {
+        public NpcBase npc;
+        public SpawnPoint spawnPoint;
+    }
+
+#if UNITY_EDITOR
     [Header("Debug")]
     public bool showGizmos = false;
     public float spawnInterval = 5f;
+#endif
 
     void Start()
     {
@@ -20,32 +34,50 @@ public class NpcSpawner : MonoBehaviour
     {
         while (true)
         {
-            Spawn();
+            SpawnPasserbyNpc();
             yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    public void Spawn(bool destroyOnReach = true, Vector3? targetPosition = null)
+    public NpcBase SpawnPasserbyNpc()
     {
-        if (npcPrefabs.Length == 0) return;
-        if (spawnPoints.Length == 0) return;
+        var spawnData = SpawnNpc(passerbyNpcPrefabs);
 
-        var npcPrefab = npcPrefabs[Random.Range(0, npcPrefabs.Length)];
-        var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-        var gameObject = Instantiate(npcPrefab, spawnPoint.RandomPosition(), Quaternion.identity);
-        if (gameObject.TryGetComponent(out NpcBase npc))
+        if (spawnData.npc != null)
         {
-            var destinationPoint = targetPosition ?? RandomDestinationPoint(spawnPoint).RandomPosition();
-            npc.MoveTo(destinationPoint);
-            if (destroyOnReach)
-            {
-                npc.OnDestinationReached += () => Destroy(gameObject);
-            }
+            var destinationPoint = RandomDestinationPoint(spawnData.spawnPoint).RandomPosition();
+            spawnData.npc.MoveTo(destinationPoint, true);
         }
+
+        return spawnData.npc;
+
     }
 
-    private SpawnPoint RandomDestinationPoint(SpawnPoint excludePoint)
+    public NpcBase SpawnQueueNpc()
+    {
+        var spawnData = SpawnNpc(queueNpcPrefabs, false);
+        return spawnData.npc;
+    }
+
+    private NpcSpawnData SpawnNpc(GameObject[] npcPrefabs, bool destroyOnReach = true)
+    {
+        if (npcPrefabs.Length == 0) return default;
+        if (spawnPoints.Length == 0) return default;
+
+        var npcPrefab = npcPrefabs[Random.Range(0, npcPrefabs.Length)];
+        var spawnPoint = RandomDestinationPoint();
+
+        var gameObject = Instantiate(npcPrefab, spawnPoint.RandomPosition(), Quaternion.identity);
+        var npc = gameObject.GetComponent<NpcBase>();
+
+        return new NpcSpawnData
+        {
+            npc = npc,
+            spawnPoint = spawnPoint,
+        };
+    }
+
+    public SpawnPoint RandomDestinationPoint(SpawnPoint excludePoint = null)
     {
         SpawnPoint destinationPoint;
         do
