@@ -22,16 +22,28 @@ public abstract class NpcBase : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     [Header("Debug")]
-    public bool showPath = true;
+    public bool showPath = false;
+    public Color pathColor = Color.yellow;
+
+    [Space]
+    public bool showDestination = false;
+    public Color destinationColor = Color.red;
+    public float destinationSize = 1f;
+#endif
 
     void Start()
     {
     }
 
-    public virtual bool MoveTo(Vector3 position)
+    public virtual bool MoveTo(Vector3 position, bool destroyOnReach = false)
     {
         HasReachedDestination = false;
+        if (destroyOnReach)
+        {
+            OnDestinationReached = () => Destroy(gameObject);
+        }
         return Agent.SetDestination(position);
     }
 
@@ -59,17 +71,23 @@ public abstract class NpcBase : MonoBehaviour
     private void DrawNavMeshPath()
     {
         if (HasReachedDestination) return;
-        if (!showPath) return;
         if (Agent == null) return;
         if (Agent.path == null) return;
 
-        DrawPath(Agent.path);
-        DrawTargetPoint(Agent.path);
+        if (showPath)
+        {
+            DrawPath(Agent.path);
+        }
+
+        if (showDestination)
+        {
+            DrawTargetPoint(Agent.path);
+        }
     }
 
     private void DrawPath(NavMeshPath path)
     {
-        Gizmos.color = Color.yellow;
+        Gizmos.color = pathColor;
 
         var previousCorner = transform.position;
         foreach (var corner in path.corners)
@@ -83,13 +101,13 @@ public abstract class NpcBase : MonoBehaviour
     {
         if (path.corners.Length == 0) return;
 
-        float size = 0.5f;
-        Gizmos.color = Color.red;
-
+        float size = destinationSize * 0.5f;
+        Gizmos.color = destinationColor;
+                                     
         var targetPosition = path.corners[^1];
-        Gizmos.DrawLine(targetPosition + Vector3.left * size, targetPosition + Vector3.right * size);
-        Gizmos.DrawLine(targetPosition + Vector3.up * size, targetPosition + Vector3.down * size);
-        Gizmos.DrawLine(targetPosition + Vector3.forward * size, targetPosition + Vector3.back * size);
+        Gizmos.DrawLine(targetPosition +  size * Vector3.left, targetPosition +  size * Vector3.right);
+        Gizmos.DrawLine(targetPosition +  size * Vector3.up, targetPosition +  size * Vector3.down);
+        Gizmos.DrawLine(targetPosition +  size * Vector3.forward, targetPosition +  size * Vector3.back);
     }
 #endif
 }
