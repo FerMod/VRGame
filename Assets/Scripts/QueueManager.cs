@@ -16,9 +16,12 @@ public class QueueManager : MonoBehaviour
     public event QueueChangedHandler OnQueue;
     public event QueueChangedHandler OnDequeue;
 
+    public bool IsQueueFull => npcQueue.Count >= queuePositions.Length;
+
     public void Enqueue(NpcBase npc)
     {
-        if (npcQueue.Contains(npc)) return;
+        if (IsQueueFull) return;
+        if (IsInQueue(npc)) return;
 
         npcQueue.AddLast(npc);
         UpdateQueuePositions();
@@ -35,6 +38,10 @@ public class QueueManager : MonoBehaviour
         UpdateQueuePositions();
 
         OnDequeue?.Invoke(npc);
+    }
+    public bool IsInQueue(NpcBase npc)
+    {
+        return npcQueue.Contains(npc);
     }
 
     private void UpdateQueuePositions()
