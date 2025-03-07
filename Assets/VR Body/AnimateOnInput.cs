@@ -12,8 +12,8 @@ public class AnimationInput
 
 public class AnimateOnInput : MonoBehaviour
 {
-    public List<AnimationInput> animationInputs;
     public Animator animator;
+    public List<AnimationInput> animationInputs;
 
     void Update()
     {

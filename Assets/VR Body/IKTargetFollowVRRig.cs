@@ -23,6 +23,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
     public VRMap leftHand;
     public VRMap rightHand;
 
+    [Space]
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
 
