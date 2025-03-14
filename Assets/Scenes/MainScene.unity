@@ -296,9 +296,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 167004654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 887bbdd87f187344abbd5a78a10ec785, type: 3}
+  m_Script: {fileID: 11500000, guid: 9841e884b2a13f6448259b9c1e6717cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  passerbyNpcPrefabs: []
+  queueNpcPrefabs: []
+  spawnPoints:
+  - transform: {fileID: 984291366}
+    area: {x: 0, y: 0, z: 0}
+  - transform: {fileID: 1915797566}
+    area: {x: 0, y: 0, z: 0}
+  - transform: {fileID: 1853614430}
+    area: {x: 0, y: 0, z: 0}
+  showGizmos: 0
+  spawnInterval: 5
 --- !u!114 &167004656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,9 +319,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 167004654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa5a4a9cf31a5354fa580d23837451a9, type: 3}
+  m_Script: {fileID: 11500000, guid: f9f8ee512b6eca44b98405a8ddf2dedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcSpawner: {fileID: 0}
+  queueManager: {fileID: 0}
+  waitPosition: {fileID: 104455516}
+  acceptPosition: {fileID: 730258378}
+  dismissPositions: []
 --- !u!4 &167004657
 Transform:
   m_ObjectHideFlags: 0
@@ -1913,9 +1929,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1941843056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37ec31f91de08a64e8a6f1f4f5a6f8ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 5136d8a756bca014b9897eb8179ef4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  queuePositions:
+  - {fileID: 1402249933}
+  - {fileID: 517041519}
+  - {fileID: 63731900}
+  - {fileID: 957825381}
 --- !u!1 &2092139007
 GameObject:
   m_ObjectHideFlags: 0
