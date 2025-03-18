@@ -1,10 +1,9 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 
 public class NpcRandomizer : MonoBehaviour
 {
-    public Parts[] randomizableParts;
+    public PartList[] randomizableParts;
 
     private void Start()
     {
@@ -13,35 +12,10 @@ public class NpcRandomizer : MonoBehaviour
 
     public void RandomizeAllParts()
     {
-        foreach (var partArray in randomizableParts)
+        foreach (var partList in randomizableParts)
         {
-            RandomizePart(partArray.parts);
+            partList.ActivateRandom();
         }
-    }
-
-    public void RandomizePart(GameObject[] array)
-    {
-        DeactivateAll(array);
-        ActivateRandom(array);
-    }
-
-    private void DeactivateAll(GameObject[] array)
-    {
-        foreach (var part in array)
-        {
-            SetActive(part, false);
-        }
-    }
-
-    public void ActivateRandom(GameObject[] array)
-    {
-        SetActive(array.Random(), true);
-    }
-
-    private void SetActive(GameObject gameObject, bool active)
-    {
-        if (gameObject == null) return;
-        gameObject.SetActive(active);
     }
 }
 
@@ -59,7 +33,40 @@ static class ArrayExtension
 }
 
 [Serializable]
-public class Parts
+public class PartList
 {
-    public GameObject[] parts;
+    public Part[] parts;
+
+    public void HideAll()
+    {
+        foreach (var part in parts)
+        {
+            part.gameObject.SetActive(false);
+        }
+    }
+
+    public void ActivateRandom()
+    {
+        HideAll();
+
+        var randomPart = parts.Random();
+        randomPart.gameObject.SetActive(true);
+        randomPart.HideIncompatibleParts();
+    }
+}
+
+[Serializable]
+public class Part
+{
+    public GameObject gameObject;
+
+    public GameObject[] incompatibleParts;
+
+    public void HideIncompatibleParts()
+    {
+        foreach (var part in incompatibleParts)
+        {
+            part.SetActive(false);
+        }
+    }
 }
