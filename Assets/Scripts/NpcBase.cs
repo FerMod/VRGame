@@ -103,7 +103,7 @@ public abstract class NpcBase : MonoBehaviour
     {
         if (path.corners.Length < 2) return;
 
-        float size = destinationSize * 0.5f;
+        var size = destinationSize * 0.5f;
         Gizmos.color = destinationColor;
 
         var targetPosition = path.corners[^1];
