@@ -1,7 +1,7 @@
 using System;
-using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class NpcBase : MonoBehaviour
@@ -34,8 +34,14 @@ public abstract class NpcBase : MonoBehaviour
     public float destinationSize = 1f;
 #endif
 
-    void Start()
+    internal void Start()
     {
+        Agent.avoidancePriority = Random.Range(0, 50);
+    }
+
+    internal void Update()
+    {
+        HandleDestinationReached();
     }
 
     public virtual bool MoveTo(Vector3 position, bool destroyOnReach = false)
@@ -48,16 +54,11 @@ public abstract class NpcBase : MonoBehaviour
         return Agent.SetDestination(position);
     }
 
-    void Update()
-    {
-        HandleDestinationReached();
-    }
-
     private void HandleDestinationReached()
     {
         if (HasReachedDestination) return;
-        if (Agent.remainingDistance > Agent.stoppingDistance) return;
         if (Agent.pathPending) return;
+        if (Agent.remainingDistance > Agent.stoppingDistance) return;
 
         HasReachedDestination = true;
         OnDestinationReached?.Invoke();
@@ -111,5 +112,7 @@ public abstract class NpcBase : MonoBehaviour
         Gizmos.DrawLine(targetPosition + size * Vector3.up, targetPosition + size * Vector3.down);
         Gizmos.DrawLine(targetPosition + size * Vector3.forward, targetPosition + size * Vector3.back);
     }
+
+
 #endif
 }

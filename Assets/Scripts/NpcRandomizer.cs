@@ -8,6 +8,8 @@ public class NpcRandomizer : MonoBehaviour
     private void Start()
     {
         RandomizeAllParts();
+        // TODO: Obtain material from active game objects and randomize colors
+        // Should take into account the color of the skin and have it the same
     }
 
     public void RandomizeAllParts()
@@ -22,13 +24,13 @@ public class NpcRandomizer : MonoBehaviour
 [Serializable]
 public class PartList
 {
-    public Part[] parts;
+    public PartGroup[] parts;
 
     public void HideAll()
     {
         foreach (var part in parts)
         {
-            part.gameObject.SetActive(false);
+            part.SetActive(false);
         }
     }
 
@@ -37,23 +39,31 @@ public class PartList
         HideAll();
 
         var randomPart = parts.Random();
-        randomPart.gameObject.SetActive(true);
-        randomPart.HideIncompatibleParts();
+        randomPart.SetActive(true);
+        //randomPart.HideIncompatibleParts();
     }
 }
 
 [Serializable]
-public class Part
+public class PartGroup
 {
-    public GameObject gameObject;
+    public GameObject[] parts;
 
-    public GameObject[] incompatibleParts;
+    //public GameObject[] incompatibleParts;
 
-    public void HideIncompatibleParts()
+    public void SetActive(bool value)
     {
-        foreach (var part in incompatibleParts)
+        foreach (var part in parts)
         {
-            part.SetActive(false);
+            part.SetActive(value);
         }
     }
+
+    //public void HideIncompatibleParts()
+    //{
+    //    foreach (var part in incompatibleParts)
+    //    {
+    //        part.SetActive(false);
+    //    }
+    //}
 }
