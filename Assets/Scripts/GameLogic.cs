@@ -9,7 +9,6 @@ public class GameLogic : MonoBehaviour
     [Space]
     public Transform waitPosition;
     public Transform acceptPosition;
-    public Transform[] dismissPositions;
 
     private NpcBase npcWaiting;
 
