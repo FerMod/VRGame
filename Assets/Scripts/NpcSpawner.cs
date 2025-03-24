@@ -5,6 +5,8 @@ using Random = UnityEngine.Random;
 
 public class NpcSpawner : MonoBehaviour
 {
+    public float spawnInterval = 5f;
+
     [Description("Passerby NPCs that will spawn and walk from one point to another.")]
     public GameObject[] passerbyNpcPrefabs;
 
@@ -22,12 +24,14 @@ public class NpcSpawner : MonoBehaviour
 #if UNITY_EDITOR
     [Header("Debug")]
     public bool showGizmos = false;
-    public float spawnInterval = 5f;
 #endif
 
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        if (spawnInterval != 0)
+        {
+            StartCoroutine(SpawnRoutine());
+        }
     }
 
     private IEnumerator SpawnRoutine()
