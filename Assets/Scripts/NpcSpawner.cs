@@ -50,7 +50,7 @@ public class NpcSpawner : MonoBehaviour
         if (spawnData.npc != null)
         {
             var destinationPoint = RandomDestinationPoint(spawnData.spawnPoint).RandomPosition();
-            spawnData.npc.MoveTo(destinationPoint, true);
+            spawnData.npc.MoveTo(destinationPoint, destroyOnReach: true);
         }
 
         return spawnData.npc;

@@ -53,7 +53,7 @@ public class GameLogic : MonoBehaviour
     public void ServeWaitingCustomer(Vector3 position)
     {
         if (npcWaiting == null) return;
-        npcWaiting.MoveTo(position, true);
+        npcWaiting.MoveTo(position, destroyOnReach: true);
         npcWaiting = null;
     }
 
