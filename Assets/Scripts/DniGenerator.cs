@@ -1,6 +1,5 @@
 using Garitto.Extensions;
 using System;
-using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,10 +9,11 @@ public class DniGenerator : MonoBehaviour
     public DniUI dniUI;
 
     [Header("Random Values")]
-    public string[] nationalities = { "Spanish", "American", "French", "German", "Italian", "British" };
     public string[] firstNames = { "John", "Jane", "Alex", "Emily", "Michael", "Sarah" };
     public string[] surnames = { "Doe", "Smith", "Johnson", "Williams", "Brown", "Jones" };
     public string[] genders = { "M", "F" };
+    public string[] nationalities = { "Spanish", "American", "French", "German", "Italian", "British" };
+    public Texture[] images;
 
     private const string dniLetters = "TRWAGMYFPDXBNJZSQVHLCKE";
 
@@ -34,7 +34,7 @@ public class DniGenerator : MonoBehaviour
         birthDate = new SerializableDate(new DateTime(Random.Range(1950, 2005), Random.Range(1, 13), Random.Range(1, 29))),
         iaps = Random.Range(0, 100000),
         expireDate = new SerializableDate(DateTime.Now.AddYears(Random.Range(1, 11))),
-        image = null // Assign a default or random image if needed
+        image = images.Random(),
     };
 
     private void UpdateUI(DniData dni)
@@ -48,6 +48,7 @@ public class DniGenerator : MonoBehaviour
         dniUI.birthDateText.text = dni.birthDate.ToDateTime().ToString("dd/MM/yyyy");
         dniUI.iapsText.text = dni.iaps.ToString("D5");
         dniUI.expireDateText.text = dni.expireDate.ToDateTime().ToString("dd/MM/yyyy");
+        dniUI.image.material.mainTexture = dni.image;
     }
 
     private string RandomDniNumber()

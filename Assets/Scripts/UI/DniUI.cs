@@ -12,4 +12,5 @@ public class DniUI : MonoBehaviour
     public TMP_Text birthDateText;
     public TMP_Text iapsText;
     public TMP_Text expireDateText;
+    public Renderer image;
 }

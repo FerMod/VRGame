@@ -13,7 +13,7 @@ public class DniData
     public SerializableDate birthDate;
     public int iaps;
     public SerializableDate expireDate;
-    public GameObject image;
+    public Texture image;
 }
 
 [Serializable]
