@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameLogic : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class GameLogic : MonoBehaviour
     public Transform acceptPosition;
 
     private NpcBase npcWaiting;
+
+    public UnityEvent<NpcBase> OnNpcWaiting;
+    public UnityEvent<NpcBase> OnServeNpc;
 
     private void OnEnable()
     {
@@ -26,17 +30,19 @@ public class GameLogic : MonoBehaviour
 
     private void HandleOnQueue(NpcBase npc)
     {
-        // NO-OP
+        NextCustomer();
     }
 
     private void HandleOnDequeue(NpcBase npc)
     {
         npc.MoveTo(waitPosition.position);
         npcWaiting = npc;
+        npcWaiting.OnDestinationReached += () => OnNpcWaiting?.Invoke(npcWaiting);
     }
 
     public void NextCustomer()
     {
+        if(npcWaiting != null) return;
         queueManager.Dequeue();
     }
 
@@ -55,6 +61,8 @@ public class GameLogic : MonoBehaviour
         if (npcWaiting == null) return;
         npcWaiting.MoveTo(position, destroyOnReach: true);
         npcWaiting = null;
+
+        OnServeNpc?.Invoke(npcWaiting);
     }
 
     public void SpawnPasserbyNpc()

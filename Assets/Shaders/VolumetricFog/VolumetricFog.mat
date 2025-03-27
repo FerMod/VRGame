@@ -110,7 +110,7 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DensityMultiplier: 0.15
-    - _DensityThreshold: 0.1
+    - _DensityThreshold: 0.01
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
