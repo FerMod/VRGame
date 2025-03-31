@@ -5524,8 +5524,8 @@ Transform:
   m_GameObject: {fileID: 1015835584}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1599453519}
@@ -6924,7 +6924,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 245763118}
@@ -7768,55 +7768,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3609993276688618807, guid: c1fe7345fca2fa142882998ec66a4f62, type: 3}
   m_PrefabInstance: {fileID: 612971455}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1493029216
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1493029217}
-  - component: {fileID: 1493029218}
-  m_Layer: 0
-  m_Name: Road_1 (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1493029217
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493029216}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.262558, y: 8.927316, z: 2.717742}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2098397211}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1493029218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493029216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_Size: {x: 19.708923, y: 2, z: 7.4}
-  m_Center: {x: 9.854462, y: 0, z: 0}
-  m_Area: 1
-  m_AffectedAgents: ffffffff
 --- !u!1 &1493970165
 GameObject:
   m_ObjectHideFlags: 0
@@ -8385,7 +8336,7 @@ Transform:
   m_GameObject: {fileID: 1599453518}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 0, z: -4}
+  m_LocalPosition: {x: 1, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9305,7 +9256,7 @@ Transform:
   m_GameObject: {fileID: 1778350829}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.819559, y: 8.927316, z: 12.217743}
+  m_LocalPosition: {x: 14.819559, y: 8.927316, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9324,8 +9275,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedVersion: 0
-  m_Size: {x: 23, y: 2, z: 9.296207}
-  m_Center: {x: -9.5, y: 0, z: -0.2894497}
+  m_Size: {x: 23, y: 2, z: 8.4}
+  m_Center: {x: -9.5, y: 0, z: -0.05}
   m_Area: 1
   m_AffectedAgents: ffffffff
 --- !u!1 &1785564435
@@ -9848,6 +9799,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2795118124790617562, guid: 27ce7d2906b1108458562de3d73398e1, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4224728784137629548, guid: 27ce7d2906b1108458562de3d73398e1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10179,6 +10134,8 @@ MonoBehaviour:
   OnServeNpc:
     m_PersistentCalls:
       m_Calls: []
+  spawnInterval: 30
+  spawnChance: 0.2
 --- !u!4 &1910755857
 Transform:
   m_ObjectHideFlags: 0
@@ -11103,7 +11060,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 23264675}
-  - {fileID: 1493029217}
   - {fileID: 1669502695}
   - {fileID: 1778350830}
   - {fileID: 1246391584}
