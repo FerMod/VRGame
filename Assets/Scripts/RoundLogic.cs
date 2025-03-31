@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Garitto
 {
@@ -9,10 +9,10 @@ namespace Garitto
         [Tooltip("The duration of the round in seconds")]
         public float roundDuration = 60f;
 
-        public UnityEvent OnRoundStart;
-        public UnityEvent OnRoundPause;
-        public UnityEvent OnRoundResume;
-        public UnityEvent OnRoundEnd;
+        public event Action OnRoundStart;
+        public event Action OnRoundPause;
+        public event Action OnRoundResume;
+        public event Action OnRoundEnd;
 
         public float ElapsedTime { get; private set; } = 0f;
         public bool IsPaused { get; private set; } = false;
