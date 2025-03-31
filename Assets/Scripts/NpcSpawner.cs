@@ -30,11 +30,11 @@ public class NpcSpawner : MonoBehaviour
     {
         if (spawnInterval != 0)
         {
-            StartCoroutine(SpawnRoutine());
+            StartCoroutine(PasserbySpawnRoutine());
         }
     }
 
-    private IEnumerator SpawnRoutine()
+    private IEnumerator PasserbySpawnRoutine()
     {
         while (true)
         {

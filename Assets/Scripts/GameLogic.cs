@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,6 +17,10 @@ public class GameLogic : MonoBehaviour
     public UnityEvent<NpcBase> OnNpcWaiting;
     public UnityEvent<NpcBase> OnServeNpc;
 
+    [Header("Spawn Settings")]
+    public float spawnInterval = 30f; // Interval in minutes
+    public float spawnChance = 0.2f; // Chance to spawn
+
     private void OnEnable()
     {
         queueManager.OnQueue += HandleOnQueue;
@@ -26,6 +31,25 @@ public class GameLogic : MonoBehaviour
     {
         queueManager.OnQueue -= HandleOnQueue;
         queueManager.OnDequeue -= HandleOnDequeue;
+    }
+
+    void Start()
+    {
+        StartCoroutine(QueueNpcSpawnRoutine());
+    }
+
+    private IEnumerator QueueNpcSpawnRoutine()
+    {
+        while (true)
+        {
+            var forceSpawn = queueManager.IsQueueEmpty && npcWaiting == null;
+            if (forceSpawn || Random.value < spawnChance)
+            {
+                SpawnQueueNpc();
+            }
+
+            yield return new WaitForSeconds(spawnInterval);
+        }
     }
 
     private void HandleOnQueue(NpcBase npc)
@@ -42,7 +66,7 @@ public class GameLogic : MonoBehaviour
 
     public void NextCustomer()
     {
-        if(npcWaiting != null) return;
+        if (npcWaiting != null) return;
         queueManager.Dequeue();
     }
 
