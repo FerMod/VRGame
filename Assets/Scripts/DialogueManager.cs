@@ -1,58 +1,72 @@
 using UnityEngine;
 using System;
 
-public class DialogueManager : MonoBehaviour
+namespace Garitto
 {
-    public event Action<Dialogue> OnDialogueStarted;
-    public event Action<string> OnShowSentence;
-    public event Action<Dialogue> OnDialogueEnded;
-
-    private Dialogue currentDialogue = null;
-    private int currentSentenceIndex = 0;
-
-    public void StartDialogue(Dialogue dialogue)
+    public class DialogueManager : MonoBehaviour
     {
-        if (dialogue == null) return;
+        public event Action<Dialogue> OnDialogueStarted;
+        public event Action<string> OnShowSentence;
+        public event Action<Dialogue> OnDialogueEnded;
 
-        currentDialogue = dialogue;
-        currentSentenceIndex = 0;
+        private Dialogue currentDialogue = null;
+        private int currentSentenceIndex = 0;
 
-        OnDialogueStarted?.Invoke(dialogue);
-        NextSentence();
-    }
-    public void NextSentence()
-    {
-        if (currentDialogue == null) return;
-        if (currentSentenceIndex >= currentDialogue.sentences.Length)
+        public void StartDialogue(Dialogue dialogue)
         {
-            EndDialogue();
-            return;
+            if (dialogue == null) return;
+
+            currentDialogue = dialogue;
+            currentSentenceIndex = 0;
+
+            OnDialogueStarted?.Invoke(dialogue);
+            NextSentence();
+        }
+        public void NextSentence()
+        {
+            if (currentDialogue == null) return;
+            if (currentSentenceIndex >= currentDialogue.sentences.Length)
+            {
+                EndDialogue();
+                return;
+            }
+
+            var text = currentDialogue.sentences[currentSentenceIndex];
+            OnShowSentence?.Invoke(text);
+
+            currentSentenceIndex++;
         }
 
-        var text = currentDialogue.sentences[currentSentenceIndex];
-        OnShowSentence?.Invoke(text);
+        public void EndDialogue()
+        {
+            if (currentDialogue == null) return;
+            OnDialogueEnded.Invoke(currentDialogue);
 
-        currentSentenceIndex++;
+            currentDialogue = null;
+        }
     }
 
-    public void EndDialogue()
+    [Serializable]
+    public class Dialogue
     {
-        if (currentDialogue == null) return;
-        OnDialogueEnded.Invoke(currentDialogue);
+        public string[] sentences = new string[] { };
+        public DialogueOption[] options;
 
-        currentDialogue = null;
+        public bool HasOptions => options != null && options.Length > 0;
     }
-}
 
-[Serializable]
-public class Dialogue
-{
-    public Dialogue() { }
-
-    public Dialogue(string[] sentences)
+    [Serializable]
+    public class DialogueOption
     {
-        this.sentences = sentences;
-    }
+        public DialogueOption(string text, Dialogue nextDialogue)
+        {
+            this.text = text;
+            this.nextDialogue = nextDialogue;
+        }
 
-    public string[] sentences = new string[] { };
+        public string text;
+        public Dialogue nextDialogue = null;
+
+        public bool HasNextDialogue => nextDialogue != null;
+    }
 }
