@@ -18,7 +18,7 @@ public class GameLogic : MonoBehaviour
     public UnityEvent<NpcBase> OnServeNpc;
 
     [Header("Spawn Settings")]
-    public float spawnInterval = 30f; // Interval in minutes
+    public float spawnInterval = 30f; // Interval in seconds
     public float spawnChance = 0.2f; // Chance to spawn
 
     private void OnEnable()
