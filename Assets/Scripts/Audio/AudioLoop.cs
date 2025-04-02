@@ -42,4 +42,11 @@ public class AudioLoop : MonoBehaviour
 
         return index;
     }
+
+    public void DebugNextClip()
+    {
+        currentClipIndex = RandomClipIndex();
+        audioSource.clip = audioClips[currentClipIndex];
+        audioSource.Play();
+    }
 }
