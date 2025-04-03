@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class DniGenerator : MonoBehaviour
 {
     [Header("UI")]
-    public DniUI dniUI;
+    public IdUI idUI;
 
     [Header("Random Values")]
     public string[] firstNames = { "John", "Jane", "Alex", "Emily", "Michael", "Sarah" };
@@ -19,37 +19,37 @@ public class DniGenerator : MonoBehaviour
 
     public void RandomDni()
     {
-        var dni = GenerateDniDocument();
-        UpdateUI(dni);
+        //var dni = GenerateDniDocument();
+        //UpdateUI(dni);
     }
 
-    public DniData GenerateDniDocument() => new()
-    {
-        number = RandomDniNumber(),
-        firstSurname = surnames.Random(),
-        secondSurname = surnames.Random(),
-        name = firstNames.Random(),
-        gender = genders.Random(),
-        nationality = nationalities.Random(),
-        birthDate = new SerializableDate(new DateTime(Random.Range(1950, 2005), Random.Range(1, 13), Random.Range(1, 29))),
-        iaps = Random.Range(0, 100000),
-        expireDate = new SerializableDate(DateTime.Now.AddYears(Random.Range(1, 11))),
-        image = images.Random(),
-    };
+    //public IdData GenerateDniDocument() => new()
+    //{
+    //    number = RandomDniNumber(),
+    //    firstSurname = surnames.Random(),
+    //    secondSurname = surnames.Random(),
+    //    name = firstNames.Random(),
+    //    gender = genders.Random(),
+    //    nationality = nationalities.Random(),
+    //    birthDate = new SerializableDate(new DateTime(Random.Range(1950, 2005), Random.Range(1, 13), Random.Range(1, 29))),
+    //    iaps = Random.Range(0, 100000),
+    //    expireDate = new SerializableDate(DateTime.Now.AddYears(Random.Range(1, 11))),
+    //    image = images.Random(),
+    //};
 
-    private void UpdateUI(DniData dni)
-    {
-        dniUI.numberText.text = dni.number;
-        dniUI.firstSurnameText.text = dni.firstSurname;
-        dniUI.secondSurnameText.text = dni.secondSurname;
-        dniUI.nameText.text = dni.name;
-        dniUI.genderText.text = dni.gender;
-        dniUI.nationalityText.text = dni.nationality;
-        dniUI.birthDateText.text = dni.birthDate.ToDateTime().ToString("dd/MM/yyyy");
-        dniUI.iapsText.text = dni.iaps.ToString("D5");
-        dniUI.expireDateText.text = dni.expireDate.ToDateTime().ToString("dd/MM/yyyy");
-        dniUI.image.material.mainTexture = dni.image;
-    }
+    //private void UpdateUI(IdData dni)
+    //{
+    //    idUI.numberText.text = dni.number;
+    //    idUI.firstSurnameText.text = dni.firstSurname;
+    //    idUI.secondSurnameText.text = dni.secondSurname;
+    //    idUI.nameText.text = dni.name;
+    //    idUI.genderText.text = dni.gender;
+    //    idUI.nationalityText.text = dni.nationality;
+    //    idUI.birthDateText.text = dni.birthDate.ToFormattedDateTime();
+    //    idUI.iapsText.text = dni.iaps.ToString("D5");
+    //    idUI.expireDateText.text = dni.expireDate.ToFormattedDateTime();
+    //    idUI.image.material.mainTexture = dni.image;
+    //}
 
     private string RandomDniNumber()
     {

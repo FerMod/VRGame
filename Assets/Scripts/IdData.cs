@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class DniData
+public class IdData
 {
     public string number;
     public string firstSurname;
@@ -35,4 +35,6 @@ public class SerializableDate
     }
 
     public DateTime ToDateTime() => new(year, month, day);
+
+    public string ToFormattedDateTime() => ToDateTime().ToString("dd/MM/yyyy");
 }
