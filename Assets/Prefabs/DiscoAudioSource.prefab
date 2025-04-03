@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 5380392296409361332}
   - component: {fileID: 2164543533702974403}
   - component: {fileID: 5797774072710217491}
-  - component: {fileID: 7088383289627971641}
   - component: {fileID: 3925415234331134699}
   m_Layer: 0
-  m_Name: InsideDiscoAudioSource
+  m_Name: DiscoAudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,10 +43,10 @@ AudioSource:
   m_GameObject: {fileID: 3231651122172937193}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 19061740295287198, guid: 38d5272c0ccd89548aaae7587d60b583, type: 2}
+  OutputAudioMixerGroup: {fileID: 6115866810974900863, guid: fab8797f36fcea74ea3822e68d1c8881, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 345a1505ba295a147b0b644147b05766, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -157,30 +156,6 @@ AudioLowPassFilter:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!167 &7088383289627971641
-AudioReverbZone:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231651122172937193}
-  m_Enabled: 1
-  m_MinDistance: 10
-  m_MaxDistance: 15
-  m_ReverbPreset: 2
-  m_Room: -1000
-  m_RoomHF: -6000
-  m_DecayTime: 0.17
-  m_DecayHFRatio: 0.1
-  m_Reflections: -1204
-  m_ReflectionsDelay: 0.001
-  m_Reverb: 207
-  m_ReverbDelay: 0.002
-  m_HFReference: 5000
-  m_Diffusion: 100
-  m_Density: 100
-  m_LFReference: 250
-  m_RoomLF: 0
 --- !u!114 &3925415234331134699
 MonoBehaviour:
   m_ObjectHideFlags: 0
