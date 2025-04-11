@@ -6,6 +6,9 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class NpcBase : MonoBehaviour
 {
+    public GameObject dialogueCanvas;
+    public GameObject idUi;
+
     public bool HasReachedDestination { get; private set; } = true;
 
     public event Action OnDestinationReached;

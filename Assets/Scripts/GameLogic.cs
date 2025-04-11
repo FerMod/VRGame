@@ -13,6 +13,7 @@ public class GameLogic : MonoBehaviour
     public Transform acceptPosition;
 
     private NpcBase npcWaiting;
+    public bool IsNpcWaiting => npcWaiting != null;
 
     public UnityEvent<NpcBase> OnNpcWaiting;
     public UnityEvent<NpcBase> OnServeNpc;

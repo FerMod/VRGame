@@ -12,7 +12,7 @@ public class Npc : NpcBase
 
         animator = GetComponent<Animator>();
         animator.SetFloat("IdleBlend", Random.Range(0, 5));
-        animator.SetFloat("WalkBlend", Random.Range(0, 4));
+        animator.SetFloat("WalkBlend", Random.Range(0, 2));
     }
 
     new void Update()

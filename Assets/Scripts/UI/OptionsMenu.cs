@@ -62,17 +62,17 @@ namespace Garitto.UI
         #region Sound
         public void SetMasterVolume(float value)
         {
-            audioMixer.SetFloat("Master", ValueToDecibels(value));
+            audioMixer.SetFloat(AudioMixerParameters.MasterVolume, ValueToDecibels(value));
         }
 
         public void SetMusicVolume(float value)
         {
-            audioMixer.SetFloat("Music", ValueToDecibels(value));
+            audioMixer.SetFloat(AudioMixerParameters.MusicVolume, ValueToDecibels(value));
         }
 
         public void SetEffectsVolume(float value)
         {
-            audioMixer.SetFloat("Effects", ValueToDecibels(value));
+            audioMixer.SetFloat(AudioMixerParameters.EffectsVolume, ValueToDecibels(value));
         }
         #endregion
 
@@ -103,7 +103,7 @@ namespace Garitto.UI
             }
             else
             {
-                audioMixer.GetFloat("Master", out var dbVolume);
+                audioMixer.GetFloat(AudioMixerParameters.MasterVolume, out var dbVolume);
                 masterSlider.value = DecibelsToValue(dbVolume);
             }
 
@@ -114,7 +114,7 @@ namespace Garitto.UI
             }
             else
             {
-                audioMixer.GetFloat("Music", out var dbVolume);
+                audioMixer.GetFloat(AudioMixerParameters.MusicVolume, out var dbVolume);
                 musicSlider.value = DecibelsToValue(dbVolume);
             }
 
@@ -125,7 +125,7 @@ namespace Garitto.UI
             }
             else
             {
-                audioMixer.GetFloat("Effects", out var dbVolume);
+                audioMixer.GetFloat(AudioMixerParameters.EffectsVolume, out var dbVolume);
                 effectsSlider.value = DecibelsToValue(dbVolume);
             }
         }
